@@ -1,29 +1,40 @@
-# vue2-todo
+# $emit
 
-## Project setup
-```
-npm install
-```
+1. [자식 컴포넌트] $emit 리스너 정의
+    ```vue
+    <template>
+        <v-btn @click="emitListener">전송</v-btn>
+    </template>
+    <script>
+    export default {
+        data() {
+            return {emitData: "emitData"}
+        },
+        methods: {
+            emitListener() {
+                this.$emit('onEmit', this.emitData)
+            }
+        }
+    }
+    </script>
+    ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+2. [부모 컴포넌트] 정의된 emit리스너에 핸들러 등록
+    ```vue
+    <template>
+    <EmitComponent @onEmit="emitHandler"/>
+    </template>
+    <script>
+    export default {
+        data() {
+            return {emitDatas: []}
+        },
+        methods: {
+            emitHandler(emitData) {
+                emitDatas.push(emitData)
+            }
+        }
+    }
+    </script>
+    ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
